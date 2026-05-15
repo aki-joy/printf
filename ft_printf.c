@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atajima <atajima@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: akihiro <akihiro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 17:18:39 by atajima           #+#    #+#             */
-/*   Updated: 2026/05/15 19:52:31 by atajima          ###   ########.fr       */
+/*   Updated: 2026/05/15 20:55:14 by akihiro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ int	ft_printf(const char *	format, ...)
 	va_list args;
 	int		res;
 
+	if (!format)
+		return (-1);
 	va_start(args, format);
 	while (*format)
 	{
 		if (*format == '%')
-			if (!check_format(format, args))
-				return (-1);
-		write (1, &*format, 1);
+			format = check_format(format, args);
+		else if (*format != '%' && !*format)
+			write (1, &*format, 1);
 		format++;
 		res++;
 	}
@@ -31,7 +33,7 @@ int	ft_printf(const char *	format, ...)
 	return (res);
 }
 
-int	check_format(const char *format, va_list args)
+char	*check_format(const char *format, va_list args)
 {
 	format++;
 	if (*format  == 'c')
@@ -40,14 +42,13 @@ int	check_format(const char *format, va_list args)
 		ft_putstr(va_arg(args, char *));
 	else if (*format == 'p')
 		ft_putaddress(va_arg(args, void *));
-	else if (*format == 'd' || *format == 'i' || *format == 'u')
+	else if (*format == 'd' || *format == 'i') 
 		ft_putnbr(va_arg(args, int));
+	else if (*format == 'u')
+		ft_putnbr(va_arg(args, unsigned int));
 	else if (*format == 'x' || *format == 'X')
 		ft_hexdecimal(format, va_arg(args, unsigned int));
 	else if (*format == '%')
 		return (ft_putchar('%'));
-	else
-		return (0);
-	format++;
-	return (1);	
+	format++;	
 }
