@@ -1,4 +1,3 @@
-printf.c\
 *.o\
 a.out\
 test.c\
