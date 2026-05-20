@@ -1,4 +1,4 @@
-*.o\
-a.out\
-test.c\
+*.o
+a.out
+test.c
 libftprintf.a

@@ -6,7 +6,7 @@
 /*   By: atajima <atajima@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 17:47:13 by atajima           #+#    #+#             */
-/*   Updated: 2026/05/20 20:31:23 by atajima          ###   ########.fr       */
+/*   Updated: 2026/05/20 21:25:38 by atajima          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdint.h>
-# include "../libft/libft.h"
 
 int	ft_printf(const char *	format, ...);
 int	check_format(const char *format, va_list *args);
