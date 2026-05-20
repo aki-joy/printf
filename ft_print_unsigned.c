@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_put.c                                           :+:      :+:    :+:   */
+/*   ft_print_unsigned.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: atajima <atajima@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/15 17:40:58 by atajima           #+#    #+#             */
-/*   Updated: 2026/05/15 20:00:49 by atajima          ###   ########.fr       */
+/*   Created: 2026/05/20 17:38:17 by atajima           #+#    #+#             */
+/*   Updated: 2026/05/20 18:09:07 by atajima          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_putstr(char *str)
+static void	ft_print_itoa(unsigned int nbr);
+
+int	ft_print_unsigned(unsigned int nbr)
 {
-	while (*str)
+	int				count;
+	unsigned int	tmp;
+
+	count = 0;
+	tmp = nbr;
+	while (tmp > 0)
 	{
-		write (1, &*str, 1);
-		str++;
+		tmp /= 10;
+		count++;
 	}
+	ft_print_itoa(nbr);
+	return (count);
 }
 
-void	ft_putaddress(void *address)
+static void	ft_print_itoa(unsigned int nbr)
 {
-	unsigned long	addr;
+	char	c;
 
-	addr = address;
-	
-}
-
-int ft_hexdecimal(char c, unsigned int hex)
-{
-	
+	if (nbr >= 10)
+		ft_print_itoa(nbr / 10);
+	c = nbr % 10 +'0';
+	write (1, &c, 1);
 }

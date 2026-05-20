@@ -1,3 +1,5 @@
 printf.c\
 *.o\
-a.out
+a.out\
+test.c\
+libftprintf.a

@@ -1,2 +1,2 @@
-**This project has been created as part of the 42 curriculum by ayajima**
+**This project has been created as part of the 42 curriculum by atajima**
 

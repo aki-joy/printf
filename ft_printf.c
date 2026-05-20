@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akihiro <akihiro@student.42.fr>            +#+  +:+       +#+        */
+/*   By: atajima <atajima@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/15 17:18:39 by atajima           #+#    #+#             */
-/*   Updated: 2026/05/15 20:55:14 by akihiro          ###   ########.fr       */
+/*   Created: 2026/05/20 18:24:46 by atajima           #+#    #+#             */
+/*   Updated: 2026/05/20 18:26:33 by atajima          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_printf.h"
 
 #include "ft_printf.h"
 
@@ -17,15 +19,19 @@ int	ft_printf(const char *	format, ...)
 	va_list args;
 	int		res;
 
-	if (!format)
-		return (-1);
 	va_start(args, format);
+	res = 0;
 	while (*format)
 	{
 		if (*format == '%')
-			format = check_format(format, args);
-		else if (*format != '%' && !*format)
-			write (1, &*format, 1);
+		{
+			format++;
+			res += check_format(format, &args);
+			format++;
+		}
+		if (*format == '\0')
+			break ;
+		write (1, &*format, 1);
 		format++;
 		res++;
 	}
@@ -33,22 +39,22 @@ int	ft_printf(const char *	format, ...)
 	return (res);
 }
 
-char	*check_format(const char *format, va_list args)
+int	check_format(const char *format, va_list *args)
 {
-	format++;
 	if (*format  == 'c')
-		ft_putstr(va_arg(args, int));
+		return (ft_printchar(va_arg(*args, int)));
 	else if (*format == 's')
-		ft_putstr(va_arg(args, char *));
+		return (ft_printstr(va_arg(*args, char *)));
 	else if (*format == 'p')
-		ft_putaddress(va_arg(args, void *));
-	else if (*format == 'd' || *format == 'i') 
-		ft_putnbr(va_arg(args, int));
+		return (ft_printaddress(va_arg(*args, void *)));
+	else if (*format == 'd' || *format == 'i')
+		return (ft_printnbr(va_arg(*args, int)));
 	else if (*format == 'u')
-		ft_putnbr(va_arg(args, unsigned int));
+		return (ft_print_unsigned(va_arg(*args, unsigned int)));
 	else if (*format == 'x' || *format == 'X')
-		ft_hexdecimal(format, va_arg(args, unsigned int));
+		return (ft_printhex(*format, va_arg(*args, unsigned int)));
 	else if (*format == '%')
-		return (ft_putchar('%'));
-	format++;	
+		return (write (1, "%", 1));
+	else
+		return (0);
 }
