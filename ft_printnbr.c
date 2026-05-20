@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printnbr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atajima <atajima@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: akihiro <akihiro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 17:34:04 by atajima           #+#    #+#             */
-/*   Updated: 2026/05/20 20:55:13 by atajima          ###   ########.fr       */
+/*   Updated: 2026/05/20 22:44:53 by akihiro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	ft_print_itoa(long nbr)
 			return (-1);
 		count += ret;
 	}
-	c = nbr % 10 +'0';
+	c = nbr % 10 + '0';
 	if (write (1, &c, 1) == -1)
 		return (-1);
 	count++;

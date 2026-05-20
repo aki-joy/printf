@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_print_unsigned.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atajima <atajima@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: akihiro <akihiro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 17:38:17 by atajima           #+#    #+#             */
-/*   Updated: 2026/05/20 21:20:43 by atajima          ###   ########.fr       */
+/*   Updated: 2026/05/21 02:06:18 by akihiro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_print_unsigned(unsigned int nbr)
 		tmp /= 10;
 		count++;
 	}
-	if(!ft_print_itoa(nbr))
+	if (!ft_print_itoa(nbr))
 		return (-1);
 	return (count);
 }
@@ -36,8 +36,11 @@ static int	ft_print_itoa(unsigned int nbr)
 	char	c;
 
 	if (nbr >= 10)
-		ft_print_itoa(nbr / 10);
-	c = nbr % 10 +'0';
+	{
+		if (ft_print_itoa(nbr / 10) == 0)
+			return (0);
+	}
+	c = nbr % 10 + '0';
 	if (write (1, &c, 1) == -1)
 		return (0);
 	return (1);

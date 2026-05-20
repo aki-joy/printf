@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atajima <atajima@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: akihiro <akihiro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:24:46 by atajima           #+#    #+#             */
-/*   Updated: 2026/05/20 19:39:33 by atajima          ###   ########.fr       */
+/*   Updated: 2026/05/20 23:02:33 by akihiro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_printf(const char *	format, ...)
+int	ft_printf(const char *format, ...)
 {
-	va_list args;
+	va_list	args;
 	int		res;
 	int		tmp;
 
@@ -23,19 +23,16 @@ int	ft_printf(const char *	format, ...)
 	while (*format)
 	{
 		if (*format == '%')
+			tmp = check_format(++format, &args);
+		else
+			tmp = write (1, format, 1);
+		if (tmp == -1)
 		{
-			format++;
-			tmp = check_format(format, &args);
-			if (tmp == -1)
-				return (-1);
-			res += tmp;
-			format++;
+			va_end(args);
+			return (-1);
 		}
-		if (*format == '\0')
-			break ;
-		write (1, &*format, 1);
+		res += tmp;
 		format++;
-		res++;
 	}
 	va_end(args);
 	return (res);
@@ -43,7 +40,7 @@ int	ft_printf(const char *	format, ...)
 
 int	check_format(const char *format, va_list *args)
 {
-	if (*format  == 'c')
+	if (*format == 'c')
 		return (ft_printchar(va_arg(*args, int)));
 	else if (*format == 's')
 		return (ft_printstr(va_arg(*args, char *)));
@@ -54,7 +51,7 @@ int	check_format(const char *format, va_list *args)
 	else if (*format == 'u')
 		return (ft_print_unsigned(va_arg(*args, unsigned int)));
 	else if (*format == 'x' || *format == 'X')
-		return (ft_printhex(*format, va_arg(*args, unsigned long)));
+		return (ft_printhex(*format, va_arg(*args, unsigned int)));
 	else if (*format == '%')
 		return (write (1, "%", 1));
 	else

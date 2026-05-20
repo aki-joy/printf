@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printchar.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: atajima <atajima@student.42tokyo.jp>       +#+  +:+       +#+        */
+/*   By: akihiro <akihiro@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 17:31:32 by atajima           #+#    #+#             */
-/*   Updated: 2026/05/20 18:51:06 by atajima          ###   ########.fr       */
+/*   Updated: 2026/05/20 22:43:47 by akihiro          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	ft_printchar(int n)
 {
 	char	c;
-	
+
 	c = (char)n;
 	return (write (1, &c, 1));
 }
