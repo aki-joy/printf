@@ -17,8 +17,6 @@ int	ft_printhex(char sign, unsigned int nbr)
 	if (nbr >= 16)
 	{
 		ret = ft_printhex(sign, nbr / 16);
-		if (ret == -1)
-			return (-1);
 		count += ret;
 	}
 	n = nbr % 16;

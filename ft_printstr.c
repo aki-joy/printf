@@ -6,18 +6,18 @@
 /*   By: atajima <atajima@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 17:35:22 by atajima           #+#    #+#             */
-/*   Updated: 2026/05/20 17:35:35 by atajima          ###   ########.fr       */
+/*   Updated: 2026/05/20 21:03:46 by atajima          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.c"
+#include "ft_printf.h"
 
 int	ft_printstr(char *str)
 {
 	int	count;
 
-	if (!str)
-		return (0);
+	if (str == NULL)
+		str = "(null)";
 	count = 0;
 	while (str[count])
 	{

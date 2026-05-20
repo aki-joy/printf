@@ -6,11 +6,9 @@
 /*   By: atajima <atajima@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 18:24:46 by atajima           #+#    #+#             */
-/*   Updated: 2026/05/20 18:26:33 by atajima          ###   ########.fr       */
+/*   Updated: 2026/05/20 19:39:33 by atajima          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "ft_printf.h"
 
 #include "ft_printf.h"
 
@@ -18,6 +16,7 @@ int	ft_printf(const char *	format, ...)
 {
 	va_list args;
 	int		res;
+	int		tmp;
 
 	va_start(args, format);
 	res = 0;
@@ -26,7 +25,10 @@ int	ft_printf(const char *	format, ...)
 		if (*format == '%')
 		{
 			format++;
-			res += check_format(format, &args);
+			tmp = check_format(format, &args);
+			if (tmp == -1)
+				return (-1);
+			res += tmp;
 			format++;
 		}
 		if (*format == '\0')
@@ -52,9 +54,9 @@ int	check_format(const char *format, va_list *args)
 	else if (*format == 'u')
 		return (ft_print_unsigned(va_arg(*args, unsigned int)));
 	else if (*format == 'x' || *format == 'X')
-		return (ft_printhex(*format, va_arg(*args, unsigned int)));
+		return (ft_printhex(*format, va_arg(*args, unsigned long)));
 	else if (*format == '%')
 		return (write (1, "%", 1));
 	else
-		return (0);
+		return (-1);
 }

@@ -6,26 +6,53 @@
 /*   By: atajima <atajima@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 17:34:04 by atajima           #+#    #+#             */
-/*   Updated: 2026/05/20 17:54:26 by atajima          ###   ########.fr       */
+/*   Updated: 2026/05/20 20:55:13 by atajima          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
+static int	ft_print_itoa(long nbr);
+
 int	ft_printnbr(int nbr)
 {
-	char	*str;
 	int		count;
+	long	num;
+	int		ret;
 
-	str = ft_itoa(nbr);
-	if (!str)
-		return (0);
 	count = 0;
-	while (str[count])
+	num = nbr;
+	if (nbr < 0)
 	{
-		write (1, &str[count], 1);
+		if (write (1, "-", 1) == -1)
+			return (-1);
 		count++;
+		num *= -1;
 	}
-	free(str);
+	ret = ft_print_itoa(num);
+	if (ret == -1)
+		return (-1);
+	count += ret;
+	return (count);
+}
+
+static int	ft_print_itoa(long nbr)
+{
+	char	c;
+	int		count;
+	int		ret;
+
+	count = 0;
+	if (nbr >= 10)
+	{
+		ret = ft_print_itoa(nbr / 10);
+		if (ret == -1)
+			return (-1);
+		count += ret;
+	}
+	c = nbr % 10 +'0';
+	if (write (1, &c, 1) == -1)
+		return (-1);
+	count++;
 	return (count);
 }
